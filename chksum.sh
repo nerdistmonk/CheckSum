@@ -6,7 +6,7 @@
 # checking against intentional tampering, MD5 is not useful for encryption
 # related purposes anymore, though it is possible to alter this script to use
 # a different hash system. (Some options would be sha256sum, sha384sum,
-# sha512sum and so on)
+# sha512sum and so on) 
 #
 # Script to create md5 hashes for files in and below the current directory
 # or the directory passed at the commandline
@@ -24,6 +24,7 @@
 # Version 2.1 / 09-02-24 - "Minor Bug Fix Release"
 # Version 2.5 / 09-03-24 - "Color Release"
 # Version 2.6 / 09-04-24 - "Bait and Tackle Release"
+# Versuib 2.6.1 / 09-04-24 - "Murphy's Release"
 #
 # Developed by nerdistmonk
 # Original Concept by Ridgy of the askubuntu forums / 12-29-17
@@ -52,9 +53,9 @@ if [ $# -eq 2 ] ; then TOPDIR=$2; fi
 
 export BACKFILE="$HASHFILE".bck
 export TMPFILE="$HASHFILE".tmp
-export WRKFILE="1".tmp
-export WRKFILE2="2".tmp
-export WRKFILE3="3".tmp
+export WRKFILE=1.tmp
+export WRKFILE2=2.tmp
+export WRKFILE3=3.tmp
 
 # Asks user if they want to verify or update the checksum manifest
 
@@ -77,7 +78,7 @@ esac
 
 if [ ! \( -f "$HASHFILE" -a -s "$HASHFILE" \) ]; then
   echo -ne "\e[33mCreating "$HASHFILE" for the first time, Stand By\e[0m"
-  find "$TOPDIR" ! -wholename "$HASHFILE" ! -wholename "$PROG" -type f -print0 | xargs -0 md5sum > "$HASHFILE"
+  find "$TOPDIR" ! -wholename "./$HASHFILE" ! -wholename "$PROG" -type f -print0 | xargs -0 md5sum > "$HASHFILE"
   echo -e "\e[32mdone.\e[0m"
   exit
 fi
@@ -91,12 +92,14 @@ fi
 # Alternate unused logic based on modification time of files
 #find "$TOPDIR" -type f -newermm "$HASHFILE" -print > "$TMPFILE"
 
-mv "$HASHFILE" "$BACKFILE"
+cp "$HASHFILE" "$BACKFILE"
 touch "$TMPFILE"
 touch "$WRKFILE"
 touch "$WRKFILE2"
 touch "$WRKFILE3"
-find "$TOPDIR" ! -wholename "$HASHFILE" ! -wholename "$PROG" ! -wholename "$BACKFILE" -type f -cnewer "$HASHFILE" -print >> "$TMPFILE"
+find "$TOPDIR" ! -wholename "./$HASHFILE" ! -wholename "$PROG" ! -wholename "./$BACKFILE" ! -wholename "./$TMPFILE" \
+! -wholename "./$WRKFILE" ! -wholename "./$WRKFILE2" ! -wholename "./$WRKFILE3" -type f -cnewer "$HASHFILE" -print >> "$TMPFILE"
+rm "$HASHFILE"
 
 # Begin Processing of files with newer dates than manifest
 
@@ -128,9 +131,9 @@ done
 # cat is used to then read the final workfile into md5sum which then appends the computed hashes
 # and adds them to the hashfile.
 
-echo -e "\e[33mRunning final scan for newly added files...Stand By.\e[0m"
-find "$TOPDIR" ! -wholename "$HASHFILE" ! -wholename "$PROG" ! -wholename "$BACKFILE" ! -wholename "$WRKFILE" \
-! -wholename "$WRKFILE2" ! -wholename "$WRKFILE3" ! -wholename "$TMPFILE" -type f -print >> "$WRKFILE"
+echo -e "\e[33mRunning final scan for newly added files, Stand By.\e[0m"
+find "$TOPDIR" ! -wholename "./$HASHFILE" ! -wholename "$PROG" ! -wholename "./$BACKFILE" ! -wholename "./$WRKFILE" \
+! -wholename "./$WRKFILE2" ! -wholename "./$WRKFILE3" ! -wholename "./$TMPFILE" -type f -print >> "$WRKFILE"
 sort -o "$WRKFILE" "$WRKFILE"
 sed 's/^.\{34\}//' "$HASHFILE" > "$WRKFILE2"
 sort -o "$WRKFILE2" "$WRKFILE2"
