@@ -22,6 +22,7 @@ Version 2.0 / 09-01-24 - "Major logic error fix release"
 Version 2.1 / 09-02-24 - "Minor Bug Fix Release"
 Version 2.5 / 09-03-24 - "Color Release"
 Version 2.6 / 09-04-24 - "Bait and Tackle Release"
+Version 2.6.1 / 09-04-24 - "Murphy's Release"
 
 Developed by nerdistmonk
 Original Concept by Ridgy of the askubuntu forums / 12-29-17
