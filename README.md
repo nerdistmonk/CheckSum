@@ -17,15 +17,15 @@ In the second run,
 To use, run (name of program) (name of manifest)
 Make up a name if it's the first time use of the program.
 
-Version 1.0 / 05-09-23 - "Initial Release"
-Version 2.0 / 09-01-24 - "Major logic error fix release"
-Version 2.1 / 09-02-24 - "Minor Bug Fix Release"
-Version 2.5 / 09-03-24 - "Color Release"
-Version 2.6 / 09-04-24 - "Bait and Tackle Release"
-Version 2.6.1 / 09-04-24 - "Murphy's Release"
+Version 1.0 - 05-09-23 - "Initial Release"
+Version 2.0 - 09-01-24 - "Major logic error fix release"
+Version 2.1 - 09-02-24 - "Minor Bug Fix Release"
+Version 2.5 - 09-03-24 - "Color Release"
+Version 2.6 - 09-04-24 - "Bait and Tackle Release"
+Version 2.6.1 - 09-04-24 - "Murphy's Release"
 
 Developed by nerdistmonk
-Original Concept by Ridgy of the askubuntu forums / 12-29-17
+Original Concept by Ridgy of the askubuntu forums - 12-29-17
 Visit yestertech on OFTC
 
 Released under General Public License 3.0
